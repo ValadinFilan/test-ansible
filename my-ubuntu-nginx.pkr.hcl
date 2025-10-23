@@ -4,6 +4,11 @@ packer {
       version = "~> 1"
       source  = "github.com/hashicorp/yandex"
     }
+
+    ansible = {
+      version = ">= 1.1.0"
+      source  = "github.com/hashicorp/ansible"
+    }
   }
 }
 
@@ -24,8 +29,15 @@ build {
   sources = ["source.yandex.ubuntu-nginx"]
 
   provisioner "shell" {
-    inline = ["sudo apt-get update -y",
-              "sudo apt-get install -y nginx",
-              "sudo systemctl enable nginx.service"]
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y python3 python3-pip",
+      "sudo apt-get install -y ansible"
+    ]
+  }
+
+  provisioner "ansible" {
+    playbook_file = "./site.yaml"
+    sftp_command = "/usr/lib/openssh/sftp-server -e"
   }
 }

@@ -70,3 +70,13 @@
     name: nginx
     state: started
     enabled: yes
+
+- name: Test access to the application on port 80
+  shell: |
+    curl 0.0.0.0:80
+  register: curl_result
+  changed_when: false
+
+- name: Display curl result
+  debug:
+    var: curl_result.stdout

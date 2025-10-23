@@ -1,5 +1,5 @@
 - name: Deploy Flask + NGINX
-  hosts: web           # or "localhost" if you prefer
+  hosts: localhost ansible_connection=local
   become: yes
   roles:
     - common

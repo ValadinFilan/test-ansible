@@ -4,6 +4,8 @@
   args:
     creates: "{{ app_dir }}/venv/bin/activate"
   become_user: "{{ app_user }}"
+  become: yes
+  become_method: enable
 
 - name: Upload Flask app file
   copy:
